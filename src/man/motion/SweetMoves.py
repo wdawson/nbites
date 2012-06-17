@@ -949,7 +949,7 @@ LEFT_LONG_BACK_KICK = (
 RIGHT_LONG_BACK_KICK =  mirrorMove(LEFT_LONG_BACK_KICK)
 
 LEFT_SHORT_BACK_KICK = (
- # lean right
+    # lean right
     ((90.,30.,-50.,-70.),
      (0.,17.,-15.,43.5,-30.,-20.),
      (0.,10,-27.,45.,-22.5,-17.),
@@ -993,6 +993,54 @@ LEFT_SHORT_BACK_KICK = (
 
 
 RIGHT_SHORT_BACK_KICK =  mirrorMove(LEFT_SHORT_BACK_KICK)
+
+LEFT_ROLL_BACK_KICK = (
+    #swing to the right
+    ((20.,30.,0.,0.),
+     (0.,17.,-22,43.5,-23.,-20.),
+     (0.,10.,-27,45,-22.5,-17),
+     (80.,-30.,0.,0),
+     2.5,0, stiff.NORMAL_STIFFNESSES),
+
+    # Lift/cock leg
+    ((20.,30.,0.,0.),
+     (0.,17,-70.,120.,-55.,-21.),
+     (0.,10,-27,45.,-22.5,-18),
+     (100.,-30,0.,0),
+     2.5,0, stiff.NORMAL_STIFFNESSES),
+
+    # Foot over ball
+    ((20.,30.,0.,0.),
+     (0.,17,-95.,45.,20.,-21.),
+     (0.,10,-27,45.,-22.5,-18),
+     (100.,-30,0.,0),
+     2.5,0, stiff.NORMAL_STIFFNESSES),
+
+    # Roll ball back
+    ((20.,30.,0.,0.),
+     (0.,17,-70.,100.,-38.,-21.),
+     (0.,10,-27,45.,-22.5,-18),
+     (100.,-30,0.,0),
+     2.5,0, stiff.NORMAL_STIFFNESSES),
+
+
+
+
+    # Recover
+    ((80.,30.,-50.,-70.),
+     (0.,25.,-27.,43.5,-21.2,-20.),
+     (0.,15,-27,45.,-22.5,-18.),
+     (80.,-30.,50.,74.),
+     2.5,0, stiff.NORMAL_STIFFNESSES),
+
+    ((90.,10.,-90.,-10.),
+     (0.0,0.0,-22.3,43.5,-21.2, 0.0),
+     (0.0,0.0,-22.3,43.5,-21.2, 0.0),
+     (90.,-10.,82.,13.2),
+     2.5,0,stiff.NORMAL_STIFFNESSES),)
+
+
+RIGHT_ROLL_BACK_KICK =  mirrorMove(LEFT_ROLL_BACK_KICK)
 
 LEFT_BIG_KICK = (
     #swing to the right
