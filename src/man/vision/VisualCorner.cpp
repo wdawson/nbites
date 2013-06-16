@@ -8,6 +8,8 @@
 using namespace std;
 using namespace boost;
 
+namespace man {
+namespace vision {
 //-------------------------------
 // Static VisualCorner variables:
 const point <int> VisualCorner::
@@ -40,7 +42,7 @@ VisualCorner::VisualCorner(const int _x, const int _y,
 
     // Calculate and set the standard deviation of the measurements
     setDistanceSD(cornerDistanceToSD(_distance));
-    setBearingSD(cornerBearingToSD(_bearing));
+    setBearingSD(cornerBearingToSD(_bearing, _distance));
 	setAngleX( static_cast<float>(HALF_IMAGE_WIDTH - _x) /
 			   static_cast<float>(HALF_IMAGE_WIDTH) *
 			   MAX_BEARING_RAD);
@@ -452,10 +454,10 @@ void VisualCorner::setDistanceWithSD(float _distance)
  *
  * @param _bearing the bearing estimate to be set
  */
-void VisualCorner::setBearingWithSD(float _bearing)
+void VisualCorner::setBearingWithSD(float _bearing, float _distance)
 {
     setBearing(_bearing);
-    setBearingSD(cornerBearingToSD(_bearing));
+    setBearingSD(cornerBearingToSD(_bearing, _distance));
 }
 
 /**
@@ -609,6 +611,7 @@ bool VisualCorner::doesItPointRight()
 /**
  * Returns true when the endpoint is below the corner on the screen.
  */
+
 bool VisualCorner::doesItPointLeft()
 {
     return orientation < 0.0;
@@ -624,4 +627,7 @@ const std::vector<cornerID> VisualCorner::getIDs() {
   }
 
   return poss;
+}
+
+}
 }

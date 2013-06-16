@@ -1,32 +1,14 @@
-
-// This file is part of Man, a robotic perception, locomotion, and
-// team strategy application created by the Northern Bites RoboCup
-// team of Bowdoin College in Brunswick, Maine, for the Aldebaran
-// Nao robot.
-//
-// Man is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Man is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// and the GNU Lesser Public License along with Man.  If not, see
-// <http://www.gnu.org/licenses/>.
-
-
 /* Field Lines class */
 
 #include <algorithm>    // for sort() and merge()
 #include <boost/shared_ptr.hpp>
 
+#include "Profiler.h"
 #include "FieldLines.h"
 using namespace std;
 
+namespace man {
+namespace vision {
 
 #ifndef OFFLINE
 #define haveFound(edgeY) edgeY != NO_EDGE
@@ -85,7 +67,7 @@ const float FieldLines::MIN_CROSS_EXTEND = 10.0f;
 // When estimating the angle between two lines on the field, anything less
 // than MIN_ANGLE_ON_FIELD or greater than MAX_ANGLE_ON_FIELD is suspect
 // and disallowed; ideally our estimates would always be 1.57 radians
-const float FieldLines::MIN_ANGLE_ON_FIELD = 1.03f;
+const float FieldLines::MIN_ANGLE_ON_FIELD = 1.15f;
 const float FieldLines::MAX_ANGLE_ON_FIELD = 2.00f;
 
 const float FieldLines::WHITE_PERCENT_CLEARANCE = 200.0f/9.0f;// 2/9 must be white
@@ -137,13 +119,13 @@ void FieldLines::lineLoop()
 {
     vector<linePoint> vertLinePoints, horLinePoints;
 
-	PROF_ENTER(P_VERT_LINES);
+    PROF_ENTER(P_VERT_LINES);
     findVerticalLinePoints(vertLinePoints);
-	PROF_EXIT(P_VERT_LINES);
+    PROF_EXIT(P_VERT_LINES);
 
-	PROF_ENTER(P_HOR_LINES);
+    PROF_ENTER(P_HOR_LINES);
     findHorizontalLinePoints(horLinePoints);
-	PROF_EXIT(P_HOR_LINES);
+    PROF_EXIT(P_HOR_LINES);
 
     sort(horLinePoints.begin(), horLinePoints.end());
 
@@ -153,30 +135,29 @@ void FieldLines::lineLoop()
           horLinePoints.begin(), horLinePoints.end(),
           linePoints.begin());
 
-	PROF_ENTER(P_CREATE_LINES);
+    PROF_ENTER(P_CREATE_LINES);
     createLines(linePoints);
-	PROF_EXIT(P_CREATE_LINES);
+    PROF_EXIT(P_CREATE_LINES);
 
-	PROF_ENTER(P_JOIN_LINES);
-	joinLines();
-	PROF_EXIT(P_JOIN_LINES);
+    PROF_ENTER(P_JOIN_LINES);
+    joinLines();
+    PROF_EXIT(P_JOIN_LINES);
 
     extendLines(linesList);
 
     // Only those linePoints which were not used in any line remain within the
     // linePoints list
     // unusedPoints is used by vision to draw points on the screen
-	PROF_ENTER(P_FIT_UNUSED);
+    PROF_ENTER(P_FIT_UNUSED);
     unusedPointsList = linePoints;
-	fitUnusedPoints(linesList, unusedPointsList);
-	PROF_EXIT(P_FIT_UNUSED);
+    fitUnusedPoints(linesList, unusedPointsList);
 
-	removeDuplicateLines();
+    removeDuplicateLines();
+    PROF_EXIT(P_FIT_UNUSED);
 
-	PROF_ENTER(P_INTERSECT_LINES);
+    PROF_ENTER(P_INTERSECT_LINES);
     cornersList = intersectLines();
-	PROF_EXIT(P_INTERSECT_LINES);
-
+    PROF_EXIT(P_INTERSECT_LINES);
 }
 
 // While lineLoop is called before object recognition so that ObjectFragments
@@ -2004,6 +1985,10 @@ list< VisualCorner > FieldLines::intersectLines()
         cout <<"Beginning intersectLines() with " << linesList.size() << " lines.."
              << endl;
     }
+	if (linesList.size() > 5) {
+		//cout << "Punting on corners" << endl;
+		//return corners;
+	}
 
     // Reset all of the context variables
     vision->thresh->context->init();
@@ -2614,6 +2599,7 @@ const bool FieldLines::isIntersectionOnScreen(const point<int>& intersection,
 	}
 	return true;
 }
+
 
 const bool FieldLines::isAngleOnFieldOkay(boost::shared_ptr<VisualLine> i,
                                           boost::shared_ptr<VisualLine> j,
@@ -4522,3 +4508,6 @@ bool FieldLines::countersHitSanityChecks(const int numWhite,
     return false;
 }
 #endif
+
+}
+}
