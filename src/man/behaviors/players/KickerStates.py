@@ -43,7 +43,7 @@ def standup(player):
 
 def kickStraight(player):
     if player.firstFrame():
-        print player.brain.ball.loc.relX, player.brain.ball.loc.relY
+        print player.brain.ball.rel_x, player.brain.ball.rel_y
         player.executeMove(SweetMoves.LEFT_ROLL_BACK_KICK)
 
     # if player.counter == 150:
