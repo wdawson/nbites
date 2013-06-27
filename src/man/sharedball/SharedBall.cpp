@@ -11,6 +11,7 @@ SharedBallModule::SharedBallModule() :
     y = CENTER_FIELD_Y;
 
     alphaGrowth = 0.f;
+    growthRate = (1-ALPHA)/ (float)FRAMES_BEFORE_RESET;
 
     framesSinceUpdate = 0;
 }
@@ -45,8 +46,8 @@ void SharedBallModule::run_() {
     }
     else {
         framesSinceUpdate++;
-        if( alphaGrowth < ((1-ALPHA) - .005))
-            alphaGrowth += .005f;
+        if( alphaGrowth < ((1-ALPHA) - growthRate))
+            alphaGrowth += growthRate;
     }
 
     portals::Message<messages::SharedBall> sharedBallMessage(0);
