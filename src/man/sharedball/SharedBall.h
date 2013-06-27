@@ -19,7 +19,7 @@
 namespace man {
 namespace context {
 
-const float ALPHA = .7f; // For exponential filter
+const float ALPHA = .75f; // For exponential filter
 
 class SharedBallModule : public portals::Module
 {
@@ -42,8 +42,13 @@ private:
     float x;
     float y;
 
+    float sumFrameX;
+    float sumFrameY;
+
+    float alphaGrowth;
+
     int framesSinceUpdate;
-    bool updatedThisFrame;
+    int updatesThisFrame;
 };
 
 } // namespace man
