@@ -189,6 +189,7 @@ Man::Man(boost::shared_ptr<AL::ALBroker> broker, const std::string &name)
 
     behaviors.localizationIn.wireTo(&localization.output);
     behaviors.filteredBallIn.wireTo(&ballTrack.ballLocationOutput);
+    behaviors.sharedBallIn.wireTo(&sharedBall.sharedBallOutput);
     behaviors.gameStateIn.wireTo(&gamestate.gameStateOutput);
     behaviors.visionFieldIn.wireTo(&vision.vision_field);
     behaviors.visionRobotIn.wireTo(&vision.vision_robot);

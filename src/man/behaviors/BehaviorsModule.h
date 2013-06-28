@@ -85,6 +85,7 @@ public:
     portals::InPortal<messages::VisionField> visionFieldIn;
     portals::InPortal<messages::VisionRobot> visionRobotIn;
     portals::InPortal<messages::FilteredBall> filteredBallIn;
+    portals::InPortal<messages::SharedBall> sharedBallIn;
     portals::InPortal<messages::JointAngles> jointsIn;
     portals::InPortal<messages::FallStatus> fallStatusIn;
     portals::InPortal<messages::StiffStatus> stiffStatusIn;

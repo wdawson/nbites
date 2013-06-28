@@ -27,4 +27,7 @@ message WorldModel
     optional bool  in_kicking_state = 16;
 
     optional bool  active = 17;
+
+    optional float shared_ball_x = 18;
+    optional float shared_ball_y = 19;
 }

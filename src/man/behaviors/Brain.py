@@ -194,6 +194,9 @@ class Brain(object):
         output.active = self.teamMembers[self.playerNumber-1].active
         output.in_kicking_state = self.player.inKickingState
 
+        output.shared_ball_x = self.interface.sharedBall.x
+        output.shared_ball_y = self.interface.sharedBall.y
+
     def getCommUpdate(self):
         self.game = self.interface.gameState
         for i in range(len(self.teamMembers)):
@@ -213,6 +216,10 @@ class Brain(object):
             or self.player.gameState == 'gameSet'):
             self.ball.x = Constants.CENTER_FIELD_X
             self.ball.y = Constants.CENTER_FIELD_Y
+
+        elif (self.ball.vis.frames_off > 1350 and self.interface.sharedBall.age < 1350):
+            self.ball.x = self.interface.sharedBall.x
+            self.ball.y = self.interface.sharedBall.y
 
         self.yglp = self.interface.visionField.goal_post_l.visual_detection
         self.ygrp = self.interface.visionField.goal_post_r.visual_detection

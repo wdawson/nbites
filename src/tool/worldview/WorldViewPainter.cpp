@@ -90,6 +90,26 @@ void WorldViewPainter::paintRobotLocation(QPaintEvent* event,
         painter.scale(1,-1);
         painter.setPen(Qt::black);
     }
+
+    // Draw global ball
+    QPoint ballCenter(msg.shared_ball_x(),
+                      msg.shared_ball_y());
+
+    //draw where I think the ball is
+    painter.setBrush(QColor::fromRgb(128,0,128));
+    painter.drawEllipse(ballCenter,
+                        8,
+                        8);
+
+    //draw how sure I am about where the ball is
+    //TODO
+
+    // Draw my number
+    painter.setPen(brushColor);
+    painter.scale(1, -1); // Scale y so that the number is right-side up.
+    painter.drawText(ballCenter.x() + 15, -ballCenter.y(), playerNum);
+    painter.scale(1,-1);
+    painter.setPen(Qt::black);
 }
 
 void WorldViewPainter::updateWithLocationMessage(messages::WorldModel newLoc,

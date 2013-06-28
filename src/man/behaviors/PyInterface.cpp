@@ -43,6 +43,10 @@ BOOST_PYTHON_MODULE(interface)
                       make_getter(&PyInterface::filteredBall_ptr,
                                   return_value_policy
                                   <reference_existing_object>()))
+        .add_property("sharedBall",
+                      make_getter(&PyInterface::sharedBall_ptr,
+                                  return_value_policy
+                                  <reference_existing_object>()))
         .add_property("ledCommand",
                       make_getter(&PyInterface::ledCommand_ptr,
                                   return_value_policy

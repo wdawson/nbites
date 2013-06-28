@@ -32,6 +32,7 @@ public:
     messages::VisionRobot       const * visionRobot_ptr;
     messages::VisionField       const * visionField_ptr;
     messages::FilteredBall      const * filteredBall_ptr;
+    messages::SharedBall        const * sharedBall_ptr;
     messages::LedCommand        const * ledCommand_ptr;
     messages::WorldModel        const * worldModel_ptr[NUM_PLAYERS_PER_TEAM];
     messages::MotionCommand     const * bodyMotionCommand_ptr;
@@ -66,6 +67,10 @@ public:
     void setFilteredBall_ptr(const messages::FilteredBall* msg)
     {
         filteredBall_ptr = msg;
+    }
+    void setSharedBall_ptr(const messages::SharedBall* msg)
+    {
+        sharedBall_ptr = msg;
     }
     void setLedCommand_ptr(const messages::LedCommand* msg)
     {
