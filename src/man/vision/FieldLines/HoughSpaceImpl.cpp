@@ -276,7 +276,7 @@ bool gradientsPointIn(HoughLine i, HoughLine j)
 
 list<pair<int, int> > HoughSpaceImpl::pairLines(ActiveArray<HoughLine>& lines)
 {
-    PROF_ENTER(P_PAIR_LINES);
+//    PROF_ENTER(P_PAIR_LINES);
     list<pair<int, int> > pairs;
     const int size = lines.size();
 
@@ -341,7 +341,7 @@ list<pair<int, int> > HoughSpaceImpl::pairLines(ActiveArray<HoughLine>& lines)
 
         pairs.push_back(pair<int,int>(i, pair_array[i]));
     }
-    PROF_EXIT(P_PAIR_LINES);
+//    PROF_EXIT(P_PAIR_LINES);
     return pairs;
 }
 
